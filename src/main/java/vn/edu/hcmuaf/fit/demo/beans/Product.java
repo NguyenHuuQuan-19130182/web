@@ -124,5 +124,20 @@ public class Product {
         return quantitySold * price;
     }
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", sellPrice=" + sellPrice +
+                ", description='" + description + '\'' +
+                ", quantity=" + quantity +
+                ", quantitySold=" + quantitySold +
+                ", img='" + img + '\'' +
+                ", color='" + color + '\'' +
+                ", weight=" + weight +
+                ", computer=" + computer +
+                '}';
+    }
 }

@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.demo.beans;
 
+import vn.edu.hcmuaf.fit.demo.dao.ProductDao;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -90,3 +92,5 @@ public class Cart implements Serializable {
         return total;
     }
 }
+
+
