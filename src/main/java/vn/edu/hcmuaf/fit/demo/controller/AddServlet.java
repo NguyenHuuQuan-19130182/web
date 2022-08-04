@@ -13,17 +13,17 @@ import java.io.IOException;
 public class AddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // get product id from requet
+        // get product id from request
         String id = request.getParameter("id");
-       Product product = ProductService.getInstance().getByID(id);
-        if(product != null){
+        Product product = ProductService.getInstance().getByID(id);
+        if (product != null) {
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
-            if(cart == null){
+            if (cart == null) {
                 cart = Cart.getInstance();
             }
             cart.put(product);
-            session.setAttribute("cart",cart);
+            session.setAttribute("cart", cart);
         }
 
         response.sendRedirect("/demo/Cart");
