@@ -29,4 +29,11 @@ public class ProductService {
     public Product getByID(String id) {
         return ProductDao.getInstance().getByID(id);
     }
+
+    public List<Product> searchByName(String txtSearch){
+        return ProductDao.getInstance().searchByName(txtSearch);
+    }
+    public Product getLast() {
+        return ProductDao.getInstance().getLast();
+    }
 }
