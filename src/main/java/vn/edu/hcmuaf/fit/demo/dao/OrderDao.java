@@ -30,7 +30,11 @@ public class OrderDao {
            int sum = 0;
            for(Product product : cart.getProductList()){
                sum += handle.createUpdate("insert into  details (order_id,product_id,price,quantity,note) values (?,?,?,?,?)")
-                       .bind(0,orderId).bind(1,product.getId()).bind(2,product.getPrice()).bind(3,product.getQuantitySold()).bind(4,"").execute();
+                       .bind(0,orderId)
+                       .bind(1,product.getId())
+                       .bind(2,product.getPrice())
+                       .bind(3,product.getQuantitySold())
+                       .bind(4,"").execute();
            }
            return sum;
         });
