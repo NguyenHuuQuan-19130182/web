@@ -39,7 +39,6 @@
     <![endif]-->
 </head>
 <body>
-
 <div class="header-area">
     <div class="container">
         <div class="row">
@@ -64,6 +63,7 @@
                     <h1><a href="./"><img src="img/logo.png"></a></h1>
                 </div>
             </div>
+
             <div class="col-sm-6">
                 <div class="shopping-item">
                     <a href="/demo/Cart">Cart - <span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i>
@@ -88,8 +88,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="/demo/home">Home</a></li>
-                    <li class="active"><a href="/demo/shop">Shop page</a></li>
-                    <li><a href="/demo/Cart">Cart</a></li>
+                    <li><a href="/demo/shop">Shop page</a></li>
+                    <li class="active"><a href="/demo/Cart">Cart</a></li>
                     <li><a href="/demo/CheckOut">Checkout</a></li>
                 </ul>
             </div>
@@ -102,61 +102,73 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-bit-title text-center">
-                    <h2>Shop</h2>
+                    <h2>Product information</h2>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="homepage-product d-inline-block w-100 js-category-home loaded" id="box-cate15">
-
-        <div class="featured-cate-banner" id="banner-collection15"></div>
-        <div class="js-glee-block">
-            <div class="title_box_center wow">
-                <h2 class="h_title">Laptop & PC</h2>
-                <form  action="Search" method="post" class="form-inline my-2 my-lg-0">
-                    <div class="input-group1">
-                        <input type="text" name="txt" class="form-control" aria-label="Small"
-                               aria-describedby="inputGroup-sizing-sm"
-                               placeholder="Search...">
-                    </div>
-
-                </form>
-                <div class="sub_cat_title">
-                    <a href="laptop.html">Laptop</a>
-                    <a href="PC.html">Gaming PC</a>
-                    <a href="CS.html">Computer Screen</a>
-                    <a href="GG.html">Gaming Gear</a>
-                </div>
-            </div><!--title_box_center-->
+<div class="info-product">
+        <div class="info-img">
+            <img src="${detail.img}" alt="">
         </div>
-        <div class="js-glee-block">
-            <div class="product-home" id="featured-cate-15">
-                <jsp:useBean id="products" scope="request" type="java.util.List"/>
-                <c:forEach items="${products}" var="p">
-                    <div class="p-component">
-                        <div class="p-img">
-                            <a href="detail?id=${p.id}">
-                                <img src="${p.img}">
-                            </a>
-                        </div>
-                        <div class="p-info">
-                            <a href="detail?id=${p.id}" class="p-name">${p.name}</a>
-                            <span class="p-price"> ${p.price}</span>
-                            <span class="p-mprice">${p.sellPrice} </span>
-                        </div>
-                        <div class="p-action">
-                            <span class="p-qty"> <i class="fa fa-check" aria-hidden="true"></i> Còn hàng </span>
-                            <a href="Add?id=${p.id}" data-id="876" class="p-buy icons js-buyNowAjax"></a>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
+        <div id="order_review" style="position: relative; text-align: center">
+            <table class="shop_table">
+                <thead>
+                <tr>
+                    <th class="product-name">Information</th>
+                    <th class="product-total"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="cart_item">
+                    <td class="product-name">Name
+                        <strong class="product-quantity"></strong>
+                    </td>
+                    <td class="product-total">
+                        <span class="name">${detail.name}</span>
+                    </td>
+                </tr>
+                <tr class="cart-price">
+                    <th>Price</th>
+                    <td><span class="amount">${detail.price}</span>
+                    </td>
+                </tr>
+                <tr class="cart-sellprice">
+                    <th>Sell Price</th>
+                    <td><span class="amount">${detail.sellPrice}</span>
+                    </td>
+                </tr>
+                <tr class="cart-description">
+                    <th>Description</th>
+                    <td><span class="description">${detail.description}</span>
+                    </td>
+                </tr>
+                <tr class="cart-quantity">
+                    <th>Quantity</th>
+                    <td><span class="quantity" style="text-align: center">${detail.quantity}</span>
+                    </td>
+                </tr>
+                <tr class="cart-color">
+                    <th>Color</th>
+                    <td><span class="color">${detail.color}</span>
+                    </td>
+                </tr>
+                <tr class="cart-weight">
+                    <th>Weight</th>
+                    <td><span class="weight">${detail.weight}</span>
+                    </td>
+                </tr>
+                <tr class="cart-description">
+                    <th>Screen</th>
+                    <td><span class="Computer">${detail.computer}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" value="Add To Cart">Add To Cart</button>
         </div>
-
-    </div>
 </div>
 
 <div class="footer-top-area">
@@ -224,7 +236,6 @@
             <div class="col-md-8">
 
             </div>
-
             <div class="col-md-4">
                 <div class="footer-card-icon">
                     <i class="fa fa-cc-discover"></i>
@@ -236,8 +247,6 @@
         </div>
     </div>
 </div>
-
-<!-- Latest jQuery form server -->
 <script src="https://code.jquery.com/jquery.min.js"></script>
 
 <!-- Bootstrap JS form CDN -->
@@ -252,5 +261,15 @@
 
 <!-- Main Script -->
 <script src="js/main.js"></script>
+
+<!-- Slider -->
+<script type="text/javascript" src="js/bxslider.min.js"></script>
+<script type="text/javascript" src="js/script.slider.js"></script>
+
+<script type="text/javascript" src="vendor/js/jquery.min.js"></script>
+<script type="text/javascript" src="vendor/js/popper.min.js"></script>
+<script type="text/javascript" src="vendor/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="vendor/js/mdb.min.js"></script>
+<script type="text/javascript" src="vendor/datatables.min.js"></script>
 </body>
 </html>
