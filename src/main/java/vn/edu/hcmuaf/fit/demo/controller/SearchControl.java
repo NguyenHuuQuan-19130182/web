@@ -1,7 +1,9 @@
 package vn.edu.hcmuaf.fit.demo.controller;
 
+import vn.edu.hcmuaf.fit.demo.beans.Catelogy;
 import vn.edu.hcmuaf.fit.demo.beans.Product;
 import vn.edu.hcmuaf.fit.demo.dao.ProductDao;
+import vn.edu.hcmuaf.fit.demo.servive.ProductService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,12 +19,12 @@ public class SearchControl extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String txtSearch = request.getParameter("txt");
-
-        ProductDao productDao = new ProductDao();
-        List<Product> lst =  productDao.searchByName(txtSearch);
+        List<Product> lst =  ProductService.getInstance().searchByName(txtSearch);
+        List<Catelogy> catelogies = ProductService.getInstance().getAllCategory();
 
 
         request.setAttribute("products", lst);
+        request.setAttribute("category",catelogies);
         request.getRequestDispatcher("shop.jsp").forward(request, response);
     }
 
