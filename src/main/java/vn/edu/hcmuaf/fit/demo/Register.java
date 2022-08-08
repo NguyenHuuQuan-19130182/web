@@ -20,10 +20,11 @@ public class Register extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirm = request.getParameter("confirm");
+        String name = request.getParameter("name");
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
 
-        if(UserService.getInstance().register(username,password,confirm,email,address,phone)){
+        if(UserService.getInstance().register(username,password,confirm,email,name,address,phone)){
             response.sendRedirect("/demo/Login");
         }else{
             request.setAttribute("error", "Register fail");
