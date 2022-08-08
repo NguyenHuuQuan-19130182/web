@@ -44,9 +44,15 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
-                        <li> |</li>
-                        <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        <c:if test="${sessionScope.auth  != null}">
+                            <li><a href="">Hello ${sessionScope.auth.username}</a></li>
+                            <li><a href="/demo/LogOut">Logout</a></li>
+                        </c:if>
+                        <c:if test="${sessionScope.auth  == null}">
+                            <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
+                            <li> |</li>
+                            <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -88,84 +94,58 @@
                     <li><a href="/demo/home">Home</a></li>
                     <li><a href="/demo/shop">Shop page</a></li>
                     <li class="active"><a href="/demo/Cart">Cart</a></li>
-                    <li><a href="/demo/CheckOut">Checkout</a></li>
+                    <li><a href="/demo/Contact">Contact</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div> <!-- End mainmenu area -->
-
-<div class="single-product-area">
-    <div class="zigzag-bottom">
-
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2>Shopping Cart</h2>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<div class="single-product-area">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Search products...">
+                    <form action="Search" method="post">
+                        <input type="text" name="txt" class="form-control" aria-label="Small"
+                               aria-describedby="inputGroup-sizing-sm"
+                               placeholder="Search product ...">
                         <input type="submit" value="Search">
                     </form>
                 </div>
 
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Products</h2>
-                    <div class="thubmnail-recent">
-                        <img src="img/250_716_bo_may_tinh_moi_i5.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">PC Intel Dual Xeon E5 2678V3 / 64GB / GTX 1070-8G</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>18.000.000</ins>
-                            <del>19.000.000</del>
+                    <jsp:useBean id="products" scope="request" type="java.util.List"/>
+                    <c:forEach items="${products}" var="p" begin="1" end="4">
+                        <div class="thubmnail-recent">
+                            <h2><a href="detail?id=${p.id}">${p.name}</a></h2>
+                            <div class="product-sidebar-price">
+                                <ins class="p-price"> ${p.price}</ins>
+                                <del class="p-mprice">${p.sellPrice} </del>
+                            </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
 
                 <div class="single-sidebar">
-                    <div class="thubmnail-recent">
-                        <img src="img/250_899_bo_may_tinh_i3_10100f_manh_hung.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Bộ PC MH Office /CPU Core i5 10400/ Ram 8g / Màn 18.5inch</a>
-                        </h2>
-                        <div class="product-sidebar-price">
-                            <ins>12.980.000</ins>
-                            <del>13.600.000</del>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-sidebar">
-                    <div class="thubmnail-recent">
-                        <img src="img/250_745_manh_hung_dell_3040.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">Máy tính MH Office Dell 3040 /i7-6700/8GB/120G-SSD</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>8.160.000</ins>
-                            <del>10.888.000</del>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-sidebar">
-
-                    <div class="thubmnail-recent">
-                        <img src="img/250_654_i3_8100.jpg" class="recent-thumb" alt="">
-                        <h2><a href="single-product.html">PC Gaming Mới B460/ i5 10400F/ Ram 8G/ GTX 1050Ti - 4GB</a>
-                        </h2>
-                        <div class="product-sidebar-price">
-                            <ins>16.788.000</ins>
-                            <del>19.388.000</del>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <h2 class="sidebar-title">Category</h2>
                     <ul>
-                        <li><a href="#">Laptop</a></li>
-                        <li><a href="#">Gaming PC</a></li>
-                        <li><a href="#">Computer Screen</a></li>
-                        <li><a href="#">Gaming Gear</a></li>
-                    </ul>
+                        <c:forEach items="${category}" var="c">
+                            <li class="list-group-item text-white ${tag == c.id ?"active":""}"><a
+                                    href="category?cid=${c.id}">${c.name}</a></li>
+                        </c:forEach></ul>
                 </div>
             </div>
 
@@ -253,10 +233,12 @@
                                 </table>
                                 <div class="form-row place-order">
                                     <ul class="payment__btn">
-                                        <li class="active-1" style="height: 60px; background-color: aquamarine;font-size: 280%;text-align: center;text-decoration: none;margin-top: 10px;list-style-type: none;">
+                                        <li class="active-1"
+                                            style="height: 60px; background-color: aquamarine;font-size: 280%;text-align: center;text-decoration: none;margin-top: 10px;list-style-type: none;">
                                             <a href="/demo/CheckOut">Payment</a>
                                         </li>
-                                        <li class="active-1" style="height: 60px; background-color: aquamarine;font-size: 280%;text-align: center;text-decoration: none;margin-top: 10px;list-style-type: none;">
+                                        <li class="active-1"
+                                            style="height: 60px; background-color: aquamarine;font-size: 280%;text-align: center;text-decoration: none;margin-top: 10px;list-style-type: none;">
                                             <a href="/demo/shop">continue shopping</a>
                                         </li>
                                     </ul>
@@ -679,6 +661,7 @@
                 }
             });
         });
+        // update quantity
         $('#cart tbody .input-text').on('blur', function () {
             // send ajac to remove product in cart
             var id = $(this).attr('pid');

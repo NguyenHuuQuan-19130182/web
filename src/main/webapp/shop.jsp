@@ -46,9 +46,15 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
-                        <li> |</li>
-                        <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        <c:if test="${sessionScope.auth  != null}">
+                            <li><a href="">Hello ${sessionScope.auth.username}</a></li>
+                            <li><a href="/demo/LogOut">Logout</a></li>
+                        </c:if>
+                        <c:if test="${sessionScope.auth  == null}">
+                            <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
+                            <li> |</li>
+                            <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -90,7 +96,7 @@
                     <li><a href="/demo/home">Home</a></li>
                     <li class="active"><a href="/demo/shop">Shop page</a></li>
                     <li><a href="/demo/Cart">Cart</a></li>
-                    <li><a href="/demo/CheckOut">Checkout</a></li>
+                    <li><a href="/demo/Contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -108,29 +114,35 @@
         </div>
     </div>
 </div>
-
 <div class="container">
-    <div class="homepage-product d-inline-block w-100 js-category-home loaded" id="box-cate15">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="single-sidebar">
+                <h2 class="sidebar-title">Search Products</h2>
+                <form action="Search" method="post">
+                    <input type="text"  name="txt" class="form-control" aria-label="Small"
+                           aria-describedby="inputGroup-sizing-sm"
+                           placeholder="Search product ...">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
 
-        <div class="featured-cate-banner" id="banner-collection15"></div>
+            <div class="single-sidebar">
+                <h2 class="sidebar-title">Category</h2>
+                <ul>
+                    <c:forEach items="${category}" var="c">
+                        <li class="list-group-item text-white ${tag == c.id ?"active":""}"><a href="category?cid=${c.id}">${c.name}</a></li>
+                    </c:forEach></ul>
+            </div>
+
+        </div>
+
+
         <div class="js-glee-block">
             <div class="title_box_center wow">
                 <h2 class="h_title">Laptop & PC</h2>
-                <form  action="Search" method="post" class="form-inline my-2 my-lg-0">
-                    <div class="input-group1">
-                        <input type="text" name="txt" class="form-control" aria-label="Small"
-                               aria-describedby="inputGroup-sizing-sm"
-                               placeholder="Search...">
-                    </div>
-
-                </form>
-                <div class="sub_cat_title">
-                    <a href="laptop.html">Laptop</a>
-                    <a href="PC.html">Gaming PC</a>
-                    <a href="CS.html">Computer Screen</a>
-                    <a href="GG.html">Gaming Gear</a>
-                </div>
-            </div><!--title_box_center-->
+            </div>
+            <!--title_box_center-->
         </div>
         <div class="js-glee-block">
             <div class="product-home" id="featured-cate-15">
@@ -155,9 +167,9 @@
                 </c:forEach>
             </div>
         </div>
-
     </div>
 </div>
+
 
 <div class="footer-top-area">
     <div class="zigzag-bottom"></div>

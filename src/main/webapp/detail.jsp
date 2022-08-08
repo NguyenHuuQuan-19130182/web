@@ -45,9 +45,17 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
-                        <li> |</li>
-                        <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        <ul>
+                            <c:if test="${sessionScope.auth  != null}">
+                                <li><a href="">Hello ${sessionScope.auth.username}</a></li>
+                                <li><a href="/demo/LogOut">Logout</a></li>
+                            </c:if>
+                            <c:if test="${sessionScope.auth  == null}">
+                                <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
+                                <li> |</li>
+                                <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                            </c:if>
+                        </ul>
                     </ul>
                 </div>
             </div>
@@ -90,7 +98,7 @@
                     <li><a href="/demo/home">Home</a></li>
                     <li><a href="/demo/shop">Shop page</a></li>
                     <li class="active"><a href="/demo/Cart">Cart</a></li>
-                    <li><a href="/demo/CheckOut">Checkout</a></li>
+                    <li><a href="/demo/Contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -167,7 +175,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="submit" value="Add To Cart">Add To Cart</button>
+            <a href="Add?id=${detail.id}"><i class="fa fa-shopping-cart"></i> Add to cart</a>
         </div>
 </div>
 

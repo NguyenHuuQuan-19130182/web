@@ -47,9 +47,15 @@
             <div class="col-md-8">
                 <div class="user-menu">
                     <ul>
-                        <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
-                        <li> |</li>
-                        <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        <c:if test="${sessionScope.auth  != null}">
+                            <li><a href="">Hello ${sessionScope.auth.username}</a></li>
+                            <li><a href="/demo/LogOut">Logout</a></li>
+                        </c:if>
+                        <c:if test="${sessionScope.auth  == null}">
+                            <li><a href="/demo/Login"><i class="fa fa-user"></i> Login </a></li>
+                            <li> |</li>
+                            <li><a href="/demo/Register"><i class="fa fa-user"></i> Register </a></li>
+                        </c:if>
                     </ul>
                 </div>
             </div>
@@ -91,7 +97,7 @@
                     <li class="active"><a href="/demo/home">Home</a></li>
                     <li><a href="/demo/shop">Shop page</a></li>
                     <li><a href="/demo/Cart">Cart</a></li>
-                    <li><a href="/demo/CheckOut">Checkout</a></li>
+                    <li><a href="/demo/Contact">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -153,108 +159,29 @@
                 <div class="latest-product">
                     <h2 class="section-title">Latest Products</h2>
                     <div class="product-carousel">
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/250_205_i7_10700.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i>
-                                        See details</a>
+                        <jsp:useBean id="products" scope="request" type="java.util.List"/>
+                        <c:forEach items="${products}" var="p" begin="1" end="5">
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img src="${p.img}" alt="">
+                                    <div class="product-hover">
+                                        <a href="Add?id=${p.id}" class="add-to-cart-link"><i
+                                                class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="detail?id=${p.id}" class="view-details-link"><i
+                                                class="fa fa-link"></i>See details</a>
+                                    </div>
+                                </div>
+
+                                <h2><a href="detail?cid=${p.id}">${p.name}</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins class="p-price"> ${p.price}</ins>
+                                    <del class="p-mprice">${p.sellPrice} </del>
                                 </div>
                             </div>
-
-                            <h2><a href="single-product.html">PC Intel Core i9 9900K / 16G/ GTX 1650 Supper 4GB</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>17.000.000</ins>
-                                <del>18.000.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/250_848_dell_g3_3579.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i>
-                                        See details</a>
-                                </div>
-                            </div>
-
-                            <h2>Dell Inspiron 3476 i5 8250U Ram 8G VGA Rời 2Gb Siêu Phẩm Cho Game Thủ</h2>
-                            <div class="product-carousel-price">
-                                <ins>15.200.000</ins>
-                                <del>16.500.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/250_716_bo_may_tinh_moi_i5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i>
-                                        See details</a>
-                                </div>
-                            </div>
-
-                            <h2>PC Intel Dual Xeon E5 2678V3 / 64GB / GTX 1070-8G</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>18.000.000</ins>
-                                <del>19.000.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/250_197_core_i5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i>
-                                        See details</a>
-                                </div>
-                            </div>
-
-                            <h2>PC Intel Dual Xeon E5 2678V3 / 64GB / GTX 1070-8G</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>15.000.000</ins>
-                                <del>15.890.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/250_220_core_i5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i>
-                                        See details</a>
-                                </div>
-                            </div>
-
-                            <h2>PC Intel Dual Xeon E5 2678V3 / 64GB / GTX 1070-8G</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>14.000.000</ins>
-                                <del>14.500.000</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/250_158_bo_may_tinh_m__i_core_i3.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a href="single-product.html" class="view-details-link"><i class="fa fa-link"></i>
-                                        See details</a>
-                                </div>
-                            </div>
-
-                            <h2>PC Intel Dual Xeon E5 2678V3 / 64GB / GTX 1070-8G</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>14.000.000</ins>
-                                <del>14.500.000</del>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
+
                 </div>
             </div>
         </div>
