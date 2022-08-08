@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.demo.dao;
 
 
+import vn.edu.hcmuaf.fit.demo.beans.Catelogy;
 import vn.edu.hcmuaf.fit.demo.beans.Product;
 import vn.edu.hcmuaf.fit.demo.db.DBConnect;
 import vn.edu.hcmuaf.fit.demo.db.JDBIConnector;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class ProductDao {
     private static ProductDao instance;
+
     Connection conn = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
@@ -35,57 +37,43 @@ public class ProductDao {
         });
     }
 
-    public Product getLast() {
-        String sql = "select top 1 * from products order by id desc";
-        try {
-            conn = new DBConnect().get().getConnection();
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return new Product(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5)
-                        , rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDouble(10)
-                        , rs.getDouble(11));
-            }
-        } catch (Exception e) {
-
-        }
-        return null;
-    }
-
     public Product getByID(String id) {
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("select  * from  products where  id = ?").bind(0, id).mapToBean(Product.class).first();
         });
     }
 
+
+    public List<Catelogy> getAllCategory() {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select  * from catelogy").mapToBean(Catelogy.class).stream().collect(Collectors.toList());
+        });
+    }
+
+    public List<Product> getProductByCID(String cid) {
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("select  * from  products where idCa = ?").bind(0, cid).mapToBean(Product.class).list();
+        });
+    }
+
     public List<Product> searchByName(String txtSearch) {
         List<Product> list = new ArrayList<>();
-        String sql = "select top 1 * from products where [name] like ? ";
+        String sql = "Select * from products where name like ?";
         try {
             conn = new DBConnect().get().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + txtSearch + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Product(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getString(5)
-                        , rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getDouble(10)
-                        , rs.getDouble(11)));
+                list.add(new Product(
+                        rs.getString(1), rs.getInt(2), rs.getString(3),
+                        rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7),rs.getInt(8), rs.getString(9),
+                        rs.getString(10), rs.getDouble(11), rs.getDouble(12)
+                ));
             }
         } catch (Exception e) {
-
         }
         return list;
     }
-//    public Product getLast(){
-//        return (Product) JDBIConnector.get().withHandle(handle -> {
-//            return  handle.createQuery("select  top 1 * from products order by id desc").mapToBean(Product.class)
-//                    .stream().collect(Collectors.toList());
-//        });
-//    }
-//    public  List<Product> searchByName(String txtSearch){
-//        return  (List<Product>)JDBIConnector.get().withHandle(handle -> {
-//            return handle.createQuery("select  * from  products where  name like ? ")
-//                    .bind(0, txtSearch).mapToBean(Product.class).first();
-//        });
-//    }
+
 }
