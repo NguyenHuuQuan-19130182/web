@@ -5,16 +5,18 @@ import java.util.Date;
 import java.util.List;
 
 public class Order implements Serializable {
-    private  int id;
-    private  User user;
+    //    private static final long serialVersionUID = 1L;
+    private int id;
+    private User user;
     private List<Detail> details;
     private Date createAt;
     private Date updateAt;
 
-    public Order(){
+    public Order() {
 
     }
-    public  Order(int id,User user,List<Detail> details,Date createAt,Date updateAt){
+
+    public Order(int id, User user, List<Detail> details, Date createAt, Date updateAt) {
         this.id = id;
         this.user = user;
         this.details = details;
@@ -60,5 +62,16 @@ public class Order implements Serializable {
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", details=" + details +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                '}';
     }
 }

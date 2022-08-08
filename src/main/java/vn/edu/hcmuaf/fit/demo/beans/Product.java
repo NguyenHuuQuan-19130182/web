@@ -3,6 +3,7 @@ package vn.edu.hcmuaf.fit.demo.beans;
 public class Product {
     private static final long serialVersionUID = 1L;
     private String id;
+    private int cid;
     private String name;
     private int price;
     private int sellPrice;
@@ -17,8 +18,10 @@ public class Product {
 
     }
 
-    public Product(String id, String name, int price, int sellPrice, String description, int quantity, int quantitySold,String img,String color,double weight,double computer) {
+    public Product(String id, int cid,String name, int price, int sellPrice, String description, int quantity, int quantitySold
+            ,String img,String color,double weight,double computer) {
         this.id = id;
+        this.cid = cid;
         this.img = img;
         this.name = name;
         this.price = price;
@@ -119,6 +122,14 @@ public class Product {
         this.weight = weight;
     }
 
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
     // get total money
     public int getTotalMoney() {
         return quantitySold * price;
@@ -128,6 +139,7 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "id='" + id + '\'' +
+                ", cid='" + cid + '\'' +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", sellPrice=" + sellPrice +

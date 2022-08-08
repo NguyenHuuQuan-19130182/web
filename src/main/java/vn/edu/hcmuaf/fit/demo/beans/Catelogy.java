@@ -4,17 +4,17 @@ import java.io.Serializable;
 
 public class Catelogy implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String id;
+    private int id;
     private String name;
     public Catelogy(){
 
     }
-    public Catelogy(String id,String name){
+    public Catelogy(int id,String name){
         this.id = id;
         this.name = name;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class Catelogy implements Serializable {
         return name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

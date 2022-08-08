@@ -16,13 +16,14 @@ public class User implements Serializable {
 
     }
 
-    public User(String username, String password, String fullname, String email,String address,String phone) {
+    public User(int id,String username, String password, String fullname, String email,String address,String phone) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.email = email;
         this.address = address;
         this.phone = phone;
+        this.id = id;
     }
 
     public int getId() {
@@ -82,4 +83,16 @@ public class User implements Serializable {
         this.fullname = fullname;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }
