@@ -22,22 +22,24 @@ public class OrderDao {
 
     public boolean create(User user, Cart cart) {
         int orderId = JDBIConnector.get().withHandle(handle -> {
-            ResultBearing resultBearing = handle.createUpdate("insert into orders (user_id,status) values (?,?)")
-                    .bind(0,user.getId()).bind(1,0).executeAndReturnGeneratedKeys();
-            return resultBearing.mapToBean(Integer.class).findFirst().get();
+            ResultBearing resultBearing = handle.createUpdate("insert into orders (user_id, status) values (?, ?)")
+                    .bind(0, user.getUsername())
+                    .bind(1, 0)
+                    .executeAndReturnGeneratedKeys();
+            return resultBearing.mapTo(Integer.class).findFirst().get();
         });
         int total = JDBIConnector.get().withHandle(handle -> {
-           int sum = 0;
-           for(Product product : cart.getProductList()){
-               sum += handle.createUpdate("insert into  details (order_id,product_id,price,quantity,note) values (?,?,?,?,?)")
-                       .bind(0,orderId)
-                       .bind(1,product.getId())
-                       .bind(2,product.getPrice())
-                       .bind(3,product.getQuantitySold())
-                       .bind(4,"").execute();
-           }
-           return sum;
+            int sum = 0;
+            for (Product product : cart.getProductList()) {
+                sum += handle.createUpdate("insert into details (order_id, product_id, price, quantity, note) values (?, ?, ?, ?, ?)")
+                        .bind(0, orderId)
+                        .bind(1, product.getId())
+                        .bind(2, product.getPrice())
+                        .bind(3, product.getQuantitySold())
+                        .bind(4, "").execute();
+            }
+            return sum;
         });
-        return  total == cart.getProductList().size();
+        return total == cart.getProductList().size();
     }
 }
