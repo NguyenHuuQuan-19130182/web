@@ -23,11 +23,12 @@ public class CheckOutServlet extends HttpServlet {
           response.sendRedirect("/demo/Login");
           return;
       }
-      if(session.getAttribute("cart") ==null){
+      if(session.getAttribute("cart") == null){
           response.sendRedirect("/demo/Cart");
           return;
       }
       boolean result = OrderService.getInstance().createOrder((User) session.getAttribute("auth"),(Cart) session.getAttribute("cart"));
+      session.removeAttribute("cart");
       if(result){
           response.sendRedirect("/demo/shop");
       }else {
