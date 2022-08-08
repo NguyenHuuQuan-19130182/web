@@ -34,10 +34,10 @@ public class UserService {
         return UserDao.getInstance().checkLogin(username, password);
     }
 
-    public boolean register(String username, String password, String confirm, String email, String address, String phone) {
+    public boolean register(String username, String password, String confirm, String email,String name, String address, String phone) {
         // check register
         if (!password.equals(confirm))
             return false;
-        return UserDao.getInstance().register(username, email, password, address, phone);
+        return UserDao.getInstance().register(username, email, name, password, address, phone);
     }
 }

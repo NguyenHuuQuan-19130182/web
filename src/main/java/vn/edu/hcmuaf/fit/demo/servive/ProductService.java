@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.demo.servive;
 
+import vn.edu.hcmuaf.fit.demo.beans.Catelogy;
 import vn.edu.hcmuaf.fit.demo.beans.Product;
 import vn.edu.hcmuaf.fit.demo.dao.ProductDao;
 
@@ -30,10 +31,15 @@ public class ProductService {
         return ProductDao.getInstance().getByID(id);
     }
 
-    public List<Product> searchByName(String txtSearch){
-        return ProductDao.getInstance().searchByName(txtSearch);
+    public List<Catelogy> getAllCategory(){
+        return ProductDao.getInstance().getAllCategory();
     }
-    public Product getLast() {
-        return ProductDao.getInstance().getLast();
+
+    public List<Product> getProductByCID(String cid){
+        return ProductDao.getInstance().getProductByCID(cid);
+    }
+
+    public List<Product> searchByName(String txtSearch) {
+        return  ProductDao.getInstance().searchByName(txtSearch);
     }
 }
