@@ -39,9 +39,16 @@ public class UserDao {
         return user;
     }
 
-    public boolean register(String username, String email, String password, String address, String phone) {
+    public boolean register(String username, String email, String name,String password, String address, String phone) {
         int i = JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("insert into user(username,password) values (?,?)").bind(0, username).bind(1, hashPassword(password)).execute()
+                handle.createUpdate("insert into user(username,password,name,email,phone,address) values (?,?,?,?,?,?)")
+                        .bind(0, username)
+                        .bind(1, hashPassword(password))
+                        .bind(2,name)
+                        .bind(3,email)
+                        .bind(4,phone)
+                        .bind(5,address)
+                        .execute()
         );
         return i == 1;
     }
